@@ -1,3 +1,5 @@
+// ================== common-ui.js — header + badge (sans realtime) ==================
+
 function currentPage() {
   const last = window.location.pathname.split("/").pop() || "index.html";
   return last.toLowerCase();
@@ -17,6 +19,7 @@ function renderHeader(profile) {
   if (!header) return;
 
   const username = profile?.username || "Inconnu";
+  const isAdmin  = profile?.role === "admin";
 
   header.innerHTML = `
     <header class="topnav">
@@ -30,7 +33,10 @@ function renderHeader(profile) {
         <a href="./index.html">Accueil</a>
         <a href="./profile.html">Profil</a>
         <a href="./officer.html" class="nav-officer">Officier</a>
-        <a href="./admin.html" class="nav-admin">Admin</a>
+        <a href="./admin.html" class="nav-admin">
+          Admin
+          <span id="waiting-badge" class="notif-dot" hidden>0</span>
+        </a>
         <a href="./logs.html" class="nav-logs">Logs</a>
       </nav>
 
@@ -41,8 +47,13 @@ function renderHeader(profile) {
     </header>
   `;
 
-  // Marque le lien actif selon la page
   setActiveNav();
+  applyRoleNav(profile?.role);
+
+  // Calcule le badge une seule fois au chargement (si admin)
+  if (isAdmin) {
+    refreshWaitingBadge();
+  }
 }
 
 function applyRoleNav(role) {
@@ -57,3 +68,30 @@ function applyRoleNav(role) {
   elLogs.forEach(el    => el.style.display = showOfficer ? "" : "none");
   elAdmin.forEach(el   => el.style.display = showAdmin   ? "" : "none");
 }
+
+// -------- Badge "en attente" (sans realtime) --------
+
+async function refreshWaitingBadge() {
+  const el = document.getElementById("waiting-badge");
+  if (!el) return;
+  try {
+    const { count, error } = await supabase
+      .from("profiles")
+      .select("*", { head: true, count: "exact" })
+      .eq("role", "waiting");
+    if (error) throw error;
+    const n = Math.max(0, Number(count || 0));
+    if (n === 0) {
+      el.hidden = true;
+    } else {
+      el.hidden = false;
+      el.textContent = String(n);
+    }
+  } catch (_) {
+    // En cas d'erreur, on masque la pastille (pas de bruit visuel)
+    el.hidden = true;
+  }
+}
+
+// Expose une fonction globale pour forcer le recalcul depuis d’autres pages (ex: admin.js)
+window.__refreshWaitingBadge = refreshWaitingBadge;

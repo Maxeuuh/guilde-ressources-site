@@ -1,14 +1,19 @@
+// ================== admin.js — rendering + actions (sans realtime) ==================
+
 async function loadPending() {
   const { data, error } = await supabase
-    .from("profiles").select("id,username,email,role")
-    .eq("role","waiting").order("created_at");
+    .from("profiles")
+    .select("id,username,email,role,created_at")
+    .eq("role", "waiting")
+    .order("created_at");
   if (error) throw error;
   return data || [];
 }
 
 async function loadAllUsers() {
   const { data, error } = await supabase
-    .from("profiles").select("id,username,email,role")
+    .from("profiles")
+    .select("id,username,email,role")
     .order("username");
   if (error) throw error;
   return data || [];
@@ -18,6 +23,12 @@ async function renderPending() {
   const tbody = document.querySelector("#pending-users tbody");
   try {
     const rows = await loadPending();
+
+    // Met à jour la pastille immédiatement (pas de realtime)
+    if (typeof window.__refreshWaitingBadge === "function") {
+      await window.__refreshWaitingBadge();
+    }
+
     if (!rows || rows.length === 0) {
       tbody.innerHTML = `<tr><td colspan="3" class="muted">Personne en attente</td></tr>`;
       return;
@@ -41,7 +52,8 @@ async function renderPending() {
       try {
         const { error } = await supabase.rpc("admin_approve", { p_user: uid, p_new_role: "member" });
         if (error) throw error;
-        await renderPending(); await renderAll();
+        await renderPending(); // re-peint tout de suite après action
+        await renderAll();
       } catch (err) { alert("Erreur: " + (err?.message || err)); }
     }));
 
@@ -49,11 +61,12 @@ async function renderPending() {
       const tr = e.target.closest("tr");
       const uid = tr?.dataset?.id;
       if (!uid) return;
-      if (!confirm("Refuser ce compte ? (Supprime le profil et ses données d'inventaire/logs)")) return;
+      if (!confirm("Refuser ce compte ? (Supprime le profil et ses données)")) return;
       try {
         const { error } = await supabase.rpc("admin_reject_cleanup", { p_user: uid });
         if (error) throw error;
-        await renderPending(); await renderAll();
+        await renderPending();
+        await renderAll();
       } catch (err) { alert("Erreur: " + (err?.message || err)); }
     }));
 
@@ -77,7 +90,9 @@ async function renderAll() {
         <td>${u.email || ""}</td>
         <td>
           <select class="role">
-            ${["waiting","member","officer","admin"].map(r => `<option value="${r}" ${u.role===r?"selected":""}>${r}</option>`).join("")}
+            ${["waiting","member","officer","admin"]
+              .map(r => `<option value="${r}" ${u.role===r?"selected":""}>${r}</option>`)
+              .join("")}
           </select>
         </td>
         <td><button class="btn save">Appliquer</button></td>
@@ -92,7 +107,8 @@ async function renderAll() {
       try {
         const { error } = await supabase.rpc("admin_set_role", { p_user: uid, p_role: role });
         if (error) throw error;
-        await renderPending(); await renderAll();
+        await renderPending();
+        await renderAll();
       } catch (err) { alert("Erreur: " + (err?.message || err)); }
     }));
 
@@ -104,6 +120,8 @@ async function renderAll() {
 (async () => {
   const ctx = await routeGuard();
   if (!ctx.user) return;
-  await renderPending();
-  await renderAll();
+
+  renderHeader(ctx.profile);       // affiche la nav + calcule la pastille si admin
+  await renderPending();           // dessine la liste en attente
+  await renderAll();               // dessine tous les users
 })();
