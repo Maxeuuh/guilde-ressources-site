@@ -338,3 +338,66 @@ hr.invis{height:0;border:0;margin:0;padding:0}
   color:#bbf7d0; border:1px solid rgba(134,239,172,.28);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.03); font-weight:800;
 }
+/* ====== Auth page tweaks (non-destructive) ====== */
+
+/* Centre le bloc et augmente la largeur utile */
+#login-box.center{
+  max-width: 520px;           /* + large que 520 ? monte à 560 si tu veux */
+  margin: 10vh auto 6vh;
+}
+
+/* Carte du formulaire plus aérée */
+#auth-form.card{
+  padding: 1.25rem 1.3rem 1.1rem;
+}
+
+/* Espacements verticaux harmonisés dans le form */
+#auth-form label{
+  display:block;
+  margin: .25rem 0 .35rem;
+  color: var(--iron-strong);
+}
+#auth-form input{
+  height: 44px;               /* mêmes hauteurs partout */
+  padding: .65rem .85rem;
+}
+
+/* Ligne des boutons Connexion / Créer un compte */
+#login-box .row{
+  gap: .6rem;
+  margin: .9rem 0 1rem;       /* de l’air au-dessus/ dessous */
+}
+#mode-signin, #mode-signup{
+  flex: 1 1 0;                 /* même largeur */
+}
+
+/* Bouton submit sur toute la largeur + respiration */
+#submit-btn{
+  width: 100%;
+  height: 46px;
+  font-weight: 700;
+}
+
+/* Bloc pseudo visible en mode signup : ajoute de l’air */
+#pseudo-wrap{
+  margin-bottom: .35rem;
+}
+
+/* Feedback lisible + variante erreur si nécessaire */
+#login-feedback{
+  margin-top: .9rem;
+  text-align: center;
+  color: var(--muted);
+}
+#login-feedback.error{
+  color: var(--danger);
+}
+
+/* Micro-améliorations visuelles */
+#auth-form{
+  backdrop-filter: saturate(110%);
+}
+#auth-form input:focus{
+  border-color: rgba(34,197,94,.55);
+  box-shadow: 0 0 0 3px rgba(34,197,94,.18);
+}
