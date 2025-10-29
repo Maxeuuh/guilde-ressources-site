@@ -26,7 +26,6 @@ function renderHeader(profile) {
       <div class="brand">
         <img src="./img/iron_crest_color.png" class="logo-mark" alt="Iron Oath logo" />
         <span class="name">Iron Oath</span>
-        <span class="tagline small">Le Serment au-delà de l’Acier</span>
       </div>
 
       <nav class="nav-links">
