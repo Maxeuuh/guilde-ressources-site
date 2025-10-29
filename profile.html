@@ -3,8 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mon profil — Iron Oath</title>
-  <link rel="stylesheet" href="./css/base.css?v=7" />
+  <title>Mon profil — Guild Inventory</title>
+
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/layout.css">
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./js/config.js" defer></script>
   <script src="./js/common-ui.js" defer></script>
@@ -12,51 +15,69 @@
   <script src="./js/profile.js" defer></script>
 </head>
 <body>
-
   <header id="site-header"></header>
 
   <main class="container">
-    <section class="hero" style="margin-top:1rem">
-      <h1 class="title">Mon inventaire</h1>
-      <p class="motto">Gérez vos ressources, mettez à jour vos quantités et effectuez des dons.</p>
+    <h1>Mon inventaire</h1>
+    <p class="muted">Gérez vos ressources, mettez à jour vos quantités et effectuez des dons.</p>
+
+    <!-- ===== Deux colonnes: Ajouter / Retirer ===== -->
+    <section class="two-col">
+      <!-- Ajouter -->
+      <section class="card form-card" id="sec-add">
+        <h2>Ajouter / Incrémenter</h2>
+        <div class="row" style="width:100%">
+          <select id="add-resource-select" required>
+            <option value="" disabled selected>— choisir —</option>
+          </select>
+          <input type="number" id="add-stacks" placeholder="Stacks (×64)" min="0" step="1" />
+          <input type="number" id="add-units"  placeholder="Unités" min="0" step="1" />
+          <button id="btn-add" class="btn primary">Ajouter</button>
+        </div>
+        <p class="small muted" style="margin:.4rem 0 0">Total ajouté : <strong id="add-total">0</strong></p>
+      </section>
+
+      <!-- Retirer -->
+      <section class="card form-card" id="sec-sub">
+        <h2>Retirer / Décrémenter</h2>
+        <div class="row" style="width:100%">
+          <select id="sub-resource-select" required>
+            <option value="" disabled selected>— choisir —</option>
+          </select>
+          <input type="number" id="sub-stacks" placeholder="Stacks (×64)" min="0" step="1" />
+          <input type="number" id="sub-units"  placeholder="Unités" min="0" step="1" />
+          <button id="btn-sub" class="btn">Retirer</button>
+        </div>
+        <p class="small muted" style="margin:.4rem 0 0">Total retiré : <strong id="sub-total">0</strong></p>
+      </section>
     </section>
 
-    <section class="card">
-      <h2>Ajouter / Incrémenter</h2>
-      <div class="row" style="align-items:stretch">
-        <select id="res-add" required></select>
-        <input id="qty-add" type="number" min="1" placeholder="Quantité" />
-        <button id="btn-add" class="btn primary">Ajouter</button>
-      </div>
-    </section>
-
+    <!-- Inventaire -->
     <section class="card">
       <h2>Inventaire actuel</h2>
-      <table class="table">
+      <table id="my-inventory" class="table">
         <thead>
-          <tr>
-            <th>Ressource</th>
-            <th>Quantité</th>
-            <th>Actions</th>
-          </tr>
+          <tr><th>Ressource</th><th>Quantité</th><th>Actions</th></tr>
         </thead>
-        <tbody id="inv-body">
-        </tbody>
+        <tbody id="inv-body"></tbody>
       </table>
     </section>
 
+    <!-- Donner -->
     <section class="card">
       <h2>Donner à un membre</h2>
-      <div class="row" style="align-items:stretch">
-        <select id="donate-to" required></select>
-        <select id="donate-res" required></select>
-        <input id="donate-qty" type="number" min="1" placeholder="Quantité" />
+      <div class="row" style="width:100%">
+        <select id="don-user" required>
+          <option value="" disabled selected>— choisir —</option>
+        </select>
+        <select id="don-resource-select" required>
+          <option value="" disabled selected>— choisir —</option>
+        </select>
+        <input type="number" id="don-qty" placeholder="Quantité" min="1" step="1" />
         <button id="btn-donate" class="btn">Donner</button>
       </div>
-      <p id="profile-feedback" class="muted small"></p>
+      <p id="profile-feedback" class="muted"></p>
     </section>
-
-    <footer class="footer">Iron Oath — Le Serment au-delà de l’Acier</footer>
   </main>
 </body>
 </html>
