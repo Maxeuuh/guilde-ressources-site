@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ressource — Iron Oath</title>
+
+  <link rel="stylesheet" href="./css/base.css?v=5">
+  <link rel="stylesheet" href="./css/layout.css?v=5">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/config.js" defer></script>
+  <script src="./js/common-ui.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/resource.js" defer></script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container">
+    <section class="hero" style="padding:1.25rem 1.2rem">
+      <h1 id="res-title" style="margin:0 0 .25rem 0">Ressource</h1>
+      <div class="chips">
+        <span class="chip">Total de guilde : <strong id="total-qty">0</strong></span>
+      </div>
+    </section>
+
+    <section class="section">
+      <table class="table">
+        <thead>
+          <tr><th>Membre</th><th>Quantité</th></tr>
+        </thead>
+        <tbody id="res-tbody">
+          <!-- lignes -->
+        </tbody>
+      </table>
+      <div id="res-empty" class="card" style="display:none">
+        <h3>Personne ne possède cette ressource.</h3>
+      </div>
+      <div id="res-error" class="callout" style="display:none"></div>
+    </section>
+  </main>
+</body>
+</html>

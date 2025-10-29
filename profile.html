@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mon profil — Iron Oath</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/base.css?v=7" />
+
+  <!-- Supabase + App scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/config.js" defer></script>
+  <script src="./js/common-ui.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/profile.js" defer></script>
+</head>
+<body>
+  <!-- Navigation rendue par renderHeader(profile) -->
+  <header id="site-header"></header>
+
+  <main class="container">
+    <section class="hero" style="margin-top:1rem">
+      <h1 class="title">Mon inventaire</h1>
+      <p class="motto">Gérez vos ressources, mettez à jour vos quantités et effectuez des dons.</p>
+    </section>
+
+    <!-- Ajouter / incrémenter -->
+    <section class="card">
+      <h2>Ajouter / Incrémenter</h2>
+      <div class="row" style="align-items:stretch">
+        <select id="res-add" required></select>
+        <input id="qty-add" type="number" min="1" placeholder="Quantité" />
+        <button id="btn-add" class="btn primary">Ajouter</button>
+      </div>
+    </section>
+
+    <!-- Inventaire actuel -->
+    <section class="card">
+      <h2>Inventaire actuel</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Ressource</th>
+            <th>Quantité</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="inv-body">
+          <!-- lignes générées par JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Donner à un membre -->
+    <section class="card">
+      <h2>Donner à un membre</h2>
+      <div class="row" style="align-items:stretch">
+        <select id="donate-to" required></select>
+        <select id="donate-res" required></select>
+        <input id="donate-qty" type="number" min="1" placeholder="Quantité" />
+        <button id="btn-donate" class="btn">Donner</button>
+      </div>
+      <p id="profile-feedback" class="muted small"></p>
+    </section>
+
+    <footer class="footer">Iron Oath — Le Serment au-delà de l’Acier</footer>
+  </main>
+</body>
+</html>

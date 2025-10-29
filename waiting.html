@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Compte en attente — Guild Inventory</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/layout.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/config.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/waiting.js" defer></script>
+</head>
+<body>
+  <main class="center">
+    <h1>Accès indisponible</h1>
+    <p class="muted" id="waiting-msg">Ton accès est en attente de validation, ou ton compte a été refusé.</p>
+    <button id="logout-btn" class="btn">Se déconnecter</button>
+  </main>
+</body>
+</html>

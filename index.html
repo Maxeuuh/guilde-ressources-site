@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Iron Oath — Accueil</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/layout.css">
+
+  <!-- Supabase + JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/config.js" defer></script>
+  <script src="./js/common-ui.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/index.js" defer></script> <!-- script ressources -->
+</head>
+
+<body>
+  <div id="site-header"></div>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero home-hero fade-in">
+      <img src="./images/iron_crest_white.png" alt="" class="crest" />
+      <div class="title">Iron Oath</div>
+      <div class="motto">
+        « Force, Honneur, Loyauté – Nous sommes le fer qui plie, mais ne rompt jamais. »
+      </div>
+      <div class="row actions">
+        <a class="btn primary" href="./profile.html">Mon profil</a>
+      </div>
+    </section>
+
+    <!-- LISTE DES RESSOURCES -->
+    <section class="section fade-in">
+      <h2 class="title-slashed">Ressources de la Guilde</h2>
+      <div id="resource-list" class="res-grid">
+        <!-- les ressources s’affichent ici -->
+      </div>
+    </section>
+  </main>
+</body>
+</html>

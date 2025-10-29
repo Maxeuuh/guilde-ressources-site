@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — Guild Inventory</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/layout.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/config.js" defer></script>
+  <script src="./js/common-ui.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/admin.js" defer></script>
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="container">
+    <h1>Comptes en attente</h1>
+    <table id="pending-users" class="table">
+      <thead><tr><th>Pseudo</th><th>Email</th><th>Actions</th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>Tous les membres (changement de rôle)</h2>
+    <table id="all-users" class="table">
+      <thead><tr><th>Pseudo</th><th>Email</th><th>Rôle</th><th>Action</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </main>
+</body>
+</html>

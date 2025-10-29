@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connexion — Guild Inventory</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/layout.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/config.js" defer></script>
+  <script src="./js/auth.js" defer></script>
+  <script src="./js/login.js" defer></script>
+</head>
+<body>
+  <main id="login-box" class="center">
+    <h1 id="form-title">Se connecter</h1>
+
+    <div class="row" style="margin-bottom:.5rem">
+      <button type="button" id="mode-signin" class="btn primary">Connexion</button>
+      <button type="button" id="mode-signup" class="btn">Créer un compte</button>
+    </div>
+
+    <form id="auth-form" class="card">
+      <div id="pseudo-wrap" style="display:none">
+        <label>Pseudo</label>
+        <input type="text" id="pseudo" placeholder="Votre pseudo" autocomplete="username">
+      </div>
+
+      <label>Email</label>
+      <input type="email" id="email" placeholder="email@exemple.com" required autocomplete="email" />
+
+      <label>Mot de passe</label>
+      <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" />
+
+      <div class="row">
+        <button type="submit" id="submit-btn" class="btn primary">Se connecter</button>
+      </div>
+    </form>
+
+    <p id="login-feedback" class="muted"></p>
+  </main>
+</body>
+</html>
