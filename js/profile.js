@@ -1,8 +1,5 @@
-// js/profile.js — Modèle sans `id` (clé primaire composite), full code
-
 "use strict";
 
-/* ========== Helpers ========== */
 function $(id) { return document.getElementById(id); }
 function setText(el, txt){ if (el) el.textContent = txt; }
 function notify(msg, ok=true){
@@ -13,16 +10,14 @@ function notify(msg, ok=true){
   setText(el, msg || "");
 }
 
-/* ========== Init ========== */
 async function initProfile() {
   try {
-    const ctx = await routeGuard();           // fournie par auth.js
+    const ctx = await routeGuard();
     if (!ctx?.user) return;
 
-    renderHeader(ctx.profile);                // fournie par common-ui.js
+    renderHeader(ctx.profile);
     applyRoleNav(ctx.profile?.role);
 
-    // Remplir les selects (ressources / membres)
     await Promise.all([
       loadResourceOptions("res-add"),
       loadResourceOptions("donate-res"),
@@ -32,14 +27,13 @@ async function initProfile() {
     wireEvents(ctx.user.id);
 
     await loadMyInventory(ctx.user.id);
-    notify(""); // clear
+    notify("");
   } catch (err) {
     console.error(err);
     notify("Erreur d'initialisation : " + (err.message || err), false);
   }
 }
 
-/* ========== Remplissage selects ========== */
 async function loadResourceOptions(selectId){
   const sel = $(selectId);
   if (!sel) return;
@@ -97,7 +91,6 @@ async function loadMemberOptions(selectId){
     data.map(u => `<option value="${u.id}">${u.username} (${u.role})</option>`).join("");
 }
 
-/* ========== Inventaire : lecture ========== */
 async function loadMyInventory(userId){
   const tbody = $("inv-body");
   if (!tbody) return;
@@ -117,7 +110,6 @@ async function loadMyInventory(userId){
     return;
   }
 
-  // Agrégation de sécurité si doublons
   const map = new Map();
   for (const row of (data || [])) {
     const rid = row.resource_id;
@@ -144,7 +136,6 @@ async function loadMyInventory(userId){
     </tr>
   `).join("");
 
-  // Actions
   tbody.querySelectorAll("button[data-action='save']").forEach(btn=>{
     btn.addEventListener("click", async (e)=>{
       const tr = e.target.closest("tr");
@@ -165,20 +156,18 @@ async function loadMyInventory(userId){
   });
 }
 
-/* ========== Inventaire : mutations (clé composite) ========== */
 async function addToMyInventory(userId, resourceId, qty){
   qty = Number(qty || 0);
   resourceId = Number(resourceId || 0);
   if (!resourceId || qty <= 0) return alert("Renseigne une ressource et une quantité valide.");
 
-  // Upsert-style : si existe, on additionne; sinon on insère
   const { data, error } = await supabase
     .from("inventories")
     .select("qty")
     .eq("user_id", userId).eq("resource_id", resourceId)
     .maybeSingle();
 
-  if (error && error.code !== "PGRST116") { // PGRST116 = no rows
+  if (error && error.code !== "PGRST116") {
     console.error("addToMyInventory/select:", error);
     return alert(error.message);
   }
@@ -222,7 +211,6 @@ async function setMyQty(userId, resourceId, qty){
     return;
   }
 
-  // Upsert via clé composite
   const { error } = await supabase
     .from("inventories")
     .upsert(
@@ -237,10 +225,9 @@ async function setMyQty(userId, resourceId, qty){
   }
 }
 
-/* ========== Don : via RPC make_donation (resource_id en BIGINT) ========== */
 async function donate(fromUserId){
   const toId  = $("donate-to")?.value || "";
-  const resId = Number(($("donate-res")?.value) || 0); // BIGINT attendu côté SQL
+  const resId = Number(($("donate-res")?.value) || 0);
   const qty   = Number(($("donate-qty")?.value) || 0);
 
   if (!toId || !resId || qty <= 0) return alert("Champs de don invalides.");
@@ -249,7 +236,7 @@ async function donate(fromUserId){
   const { error } = await supabase.rpc("make_donation", {
     p_from: fromUserId,
     p_to: toId,
-    p_resource: resId,  // number => bigint
+    p_resource: resId,
     p_qty: qty
   });
   if (error) {
@@ -261,7 +248,6 @@ async function donate(fromUserId){
   notify("Don effectué !");
 }
 
-/* ========== Events ========== */
 function wireEvents(userId){
   $("btn-add")?.addEventListener("click", async ()=>{
     const resId = $("res-add")?.value;
@@ -277,5 +263,4 @@ function wireEvents(userId){
   });
 }
 
-/* ========== GO ========== */
 initProfile();

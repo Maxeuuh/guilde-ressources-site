@@ -1,5 +1,3 @@
-// js/index.js
-
 function goToResource(id){
   window.location = `resource.html?id=${id}`;
 }
@@ -23,14 +21,12 @@ async function loadResources() {
     return;
   }
 
-  // Utilise un <button> pour un meilleur a11y (tab, Enter/Space)
   list.innerHTML = data.map(r => `
     <button class="res-item" type="button" data-id="${r.id}" aria-label="Voir ${r.name}">
       <span class="label">${r.name}</span>
     </button>
   `).join("");
 
-  // Click + clavier
   document.querySelectorAll(".res-item").forEach(btn => {
     const id = btn.getAttribute("data-id");
     btn.addEventListener("click", () => goToResource(id));
@@ -43,7 +39,6 @@ async function loadResources() {
   });
 }
 
-// Init
 (async () => {
   const ctx = await routeGuard();
   if (!ctx.user) return;

@@ -1,5 +1,3 @@
-// js/auth.js
-
 function normalizeRoute() {
   let p = window.location.pathname;
   const last = p.split("/").pop();
@@ -37,7 +35,6 @@ async function routeGuard() {
     return { user: null, profile: null };
   }
 
-  // Récupère le profil; s’il n’existe pas => on force l’attente
   let profile = null;
   try {
     const { data, error } = await supabase
@@ -50,20 +47,17 @@ async function routeGuard() {
 
   const role = profile?.role || "waiting";
 
-  // Profil manquant OU rôle waiting => waiting.html uniquement
   if ((role === "waiting" || !profile) && ROUTE !== "waiting.html") {
     go("./waiting.html"); 
     return { user, profile };
   }
 
-  // Si connecté et sur login => redirige
   if (ROUTE === "login.html") {
     if (role === "waiting" || !profile) go("./waiting.html");
     else go("./index.html");
     return { user, profile };
   }
 
-  // Accès par rôle
   const needsMemberAndUp = PAGES.memberAndUp.includes(ROUTE);
   const needsOfficer     = PAGES.officerOnly.includes(ROUTE);
   const needsAdmin       = PAGES.adminOnly.includes(ROUTE);
@@ -72,13 +66,11 @@ async function routeGuard() {
   if (needsOfficer && !(role === "officer" || role === "admin")) { go("./index.html"); return { user, profile }; }
   if (needsAdmin && role !== "admin") { go("./index.html"); return { user, profile }; }
 
-  // Header/nav
   if (document.getElementById("site-header")) {
     renderHeader(profile);
     applyRoleNav(role);
   }
 
-  // Logout
   const logoutBtn = document.getElementById("logout-btn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {

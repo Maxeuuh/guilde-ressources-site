@@ -4,11 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mon profil — Iron Oath</title>
-
-  <!-- Styles -->
   <link rel="stylesheet" href="./css/base.css?v=7" />
-
-  <!-- Supabase + App scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./js/config.js" defer></script>
   <script src="./js/common-ui.js" defer></script>
@@ -16,7 +12,7 @@
   <script src="./js/profile.js" defer></script>
 </head>
 <body>
-  <!-- Navigation rendue par renderHeader(profile) -->
+
   <header id="site-header"></header>
 
   <main class="container">
@@ -25,7 +21,6 @@
       <p class="motto">Gérez vos ressources, mettez à jour vos quantités et effectuez des dons.</p>
     </section>
 
-    <!-- Ajouter / incrémenter -->
     <section class="card">
       <h2>Ajouter / Incrémenter</h2>
       <div class="row" style="align-items:stretch">
@@ -35,7 +30,6 @@
       </div>
     </section>
 
-    <!-- Inventaire actuel -->
     <section class="card">
       <h2>Inventaire actuel</h2>
       <table class="table">
@@ -47,12 +41,10 @@
           </tr>
         </thead>
         <tbody id="inv-body">
-          <!-- lignes générées par JS -->
         </tbody>
       </table>
     </section>
 
-    <!-- Donner à un membre -->
     <section class="card">
       <h2>Donner à un membre</h2>
       <div class="row" style="align-items:stretch">

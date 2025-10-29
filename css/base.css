@@ -1,6 +1,6 @@
-/* ========= Iron Oath — Thème global + Layout ========= */
+/* ===================== Iron Oath — Thème global & Layout ===================== */
 
-/* Variables */
+/* === Variables & base globale === */
 :root{
   --bg-0:#0a0d12;
   --bg-1:#0e131a;
@@ -27,20 +27,14 @@
   --font-ui: system-ui, "Segoe UI", Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
   --font-title: var(--font-ui);
 }
-
-/* Forcer les menus natifs en sombre (Chrome/Firefox/Edge/Safari) */
 :root{ color-scheme: dark; }
-
 *{box-sizing:border-box}
 
-/* ===== Fond global (clair + anti-banding) ===== */
 html,body{
   margin:0; padding:0; min-height:100%;
   color:var(--text);
   font:16px/1.55 var(--font-ui);
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-
-  /* Fond lisse + vignettes + bruit PNG (évite les bandes) */
   background-color:#0c1218;
   background-image:
     radial-gradient(1000px 650px at 90% -10%, rgba(34,197,94,.20), rgba(34,197,94,0) 60%),
@@ -53,16 +47,13 @@ html,body{
   background-attachment: fixed, fixed, fixed, fixed;
 }
 
-/* Links */
 a{color:inherit;text-decoration:none}
 a.link{color:var(--accent)}
 a.link:hover{color:var(--accent-3)}
 
-/* Containers */
 .container{max-width:1100px;margin:0 auto;padding:1.25rem}
 .center{max-width:520px;margin:10vh auto;padding:1.25rem}
 
-/* Headings */
 h1,h2,h3{font-family:var(--font-title);margin:.2rem 0 1rem;letter-spacing:.3px}
 h1{font-size:1.85rem}
 h2{font-size:1.35rem;color:var(--iron-strong)}
@@ -70,7 +61,7 @@ h3{font-size:1.1rem;color:var(--iron)}
 .muted{color:var(--muted);opacity:.95}
 .small{font-size:.92rem}
 
-/* ===== Cards (panneaux) ===== */
+/* === Composants structurels === */
 .card{
   background:
     radial-gradient(800px 420px at 110% -10%, rgba(34,197,94,.15), transparent 60%),
@@ -82,11 +73,10 @@ h3{font-size:1.1rem;color:var(--iron)}
 }
 .card h2{margin-top:.2rem}
 
-/* Rows / Grids */
 .row{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center}
 .grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
 
-/* ===== Inputs / Selects / Textareas ===== */
+/* === Formulaires : inputs / selects / textareas === */
 input,select,textarea,button{font:inherit;border-radius:12px;border:1px solid var(--line)}
 input,select,textarea{
   width:100%;
@@ -105,7 +95,6 @@ input:focus,select:focus,textarea:focus{
   filter: brightness(1.02);
 }
 
-/* === SELECTS : dark + lisibles + flèche SVG, sans artefact marron === */
 select, select option{
   background-color:#0f1722 !important;
   color:#e8edf3 !important;
@@ -113,15 +102,14 @@ select, select option{
 select{
   appearance:none; -webkit-appearance:none; -moz-appearance:none;
   height:44px; line-height:1.2;
-  padding:.6rem 2.2rem .6rem .8rem;  /* place pour la flèche */
+  padding:.6rem 2.2rem .6rem .8rem;
   border-radius:12px;
   border:1px solid var(--line);
   color:var(--text) !important;
-
   background:
-    linear-gradient(180deg, #131c28 0%, #0f1722 100%) /* fond */,
+    linear-gradient(180deg, #131c28 0%, #0f1722 100%),
     url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23cfe8d7' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>") /* flèche */;
+<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23cfe8d7' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
   background-repeat:no-repeat, no-repeat;
   background-position:0 0, right 12px center;
   background-size:auto, 12px 12px;
@@ -133,13 +121,11 @@ select:focus{
   box-shadow: 0 0 0 4px rgba(34,197,94,.18);
   filter: brightness(1.02);
 }
-/* Placeholder (ex: — choisir —) plus lisible */
 select:invalid{ color:#9fb1c3; }
 select option[disabled][value=""]{ color:#9fb1c3; }
-/* Windows/Edge: enlever l’icône système */
 select::-ms-expand{ display:none; }
 
-/* ===== Buttons ===== */
+/* === Boutons === */
 .btn{
   background:linear-gradient(180deg,#141b27,#101621);
   color:var(--text);
@@ -160,7 +146,7 @@ select::-ms-expand{ display:none; }
 .btn.danger{background:#2a121a;border-color:#703344;color:#ffdbe3}
 .btn.danger:hover{background:#381722}
 
-/* ===== Tables ===== */
+/* === Tables & badges === */
 .table{
   width:100%;
   border-collapse:collapse;
@@ -176,14 +162,13 @@ select::-ms-expand{ display:none; }
 .table tr:hover td{background:#0f1722}
 .table tfoot td{font-weight:600;color:var(--iron-strong)}
 
-/* ===== Badges (rôles) ===== */
 .badge{display:inline-block;padding:.25rem .55rem;border-radius:999px;font-size:.82rem;border:1px solid var(--line)}
 .badge.waiting{background:#1a1f2b;color:#c1c7d3}
 .badge.member{background:#0e2a1a;color:#a7f3d0;border-color:rgba(34,197,94,.35)}
 .badge.officer{background:#1c2435;color:#c7d2fe;border-color:#5866d9}
 .badge.admin{background:#2b1a22;color:#ffd6e0;border-color:#ff4d6d}
 
-/* Dividers & quotes */
+/* === Divers (séparateurs, citations) === */
 .divider{height:1px;background:linear-gradient(90deg,transparent, var(--line), transparent);margin:1.2rem 0}
 .quote{
   font-style:italic;color:#dfe7f2;opacity:.95;
@@ -193,7 +178,7 @@ select::-ms-expand{ display:none; }
   border-radius:8px;
 }
 
-/* ===== Hero section ===== */
+/* === Hero === */
 .hero{
   position:relative; overflow:hidden;
   border:1px solid rgba(255,255,255,.08);
@@ -211,29 +196,23 @@ select::-ms-expand{ display:none; }
 .hero .motto{margin:.4rem 0 1rem;color:var(--iron-strong)}
 .hero .crest{position:absolute; right:-28px; bottom:-28px; width:220px; opacity:.08; pointer-events:none; user-select:none}
 
-/* Sections */
+/* === Sections & chips === */
 .section{margin:2rem 0}
 .section h2{display:flex;align-items:center;gap:.6rem}
 .section h2::after{content:""; flex:1 1 auto; height:1px; background:linear-gradient(90deg, var(--line), transparent)}
-
-/* Chips (petites pastilles) */
 .chips{display:flex;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 0}
 .chip{border:1px solid var(--line);padding:.25rem .6rem;border-radius:999px;font-size:.82rem;color:var(--iron-strong);background:#0e141e}
 
-/* Utils */
+/* === Utilitaires === */
 hr.invis{height:0;border:0;margin:0;padding:0}
 .space-sm{height:.6rem}
 .space{height:1.2rem}
 .space-lg{height:2rem}
-
-/* Logo */
 .logo-mark{width:34px;height:34px;object-fit:contain;display:inline-block;vertical-align:middle;filter: drop-shadow(0 6px 16px rgba(0,0,0,.45))}
-
-/* Animations */
 .fade-in{animation:fade .35s ease both}
 @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-/* ========= Navigation ========= */
+/* === Navigation === */
 .topnav{
   position:sticky; top:0; z-index:30;
   display:flex; align-items:center; justify-content:space-between;
@@ -267,7 +246,7 @@ hr.invis{height:0;border:0;margin:0;padding:0}
 #logout-btn{margin-left:.35rem}
 .footer{margin:2rem 0 1rem; color:var(--iron); font-size:.92rem; text-align:center; opacity:.85}
 
-/* ======= Accueil : cartes Ressources ======= */
+/* === Accueil : cartes ressources === */
 .home-hero{ margin-top:1rem; }
 .home-hero .actions{display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem}
 
@@ -303,7 +282,7 @@ hr.invis{height:0;border:0;margin:0;padding:0}
 .res-item .label{font-weight:600; letter-spacing:.2px}
 .res-item .qty{color:var(--muted)}
 
-/* ======= Page Ressource : liste propre ======= */
+/* === Page ressource : liste des détenteurs === */
 .holder-list{ display:flex; flex-direction:column; gap:.6rem; margin-top:1rem; }
 .holder-row{
   display:flex; align-items:center; justify-content:space-between;
@@ -338,52 +317,39 @@ hr.invis{height:0;border:0;margin:0;padding:0}
   color:#bbf7d0; border:1px solid rgba(134,239,172,.28);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.03); font-weight:800;
 }
-/* ====== Auth page tweaks (non-destructive) ====== */
 
-/* Centre le bloc et augmente la largeur utile */
+/* === Auth : overrides non destructifs === */
 #login-box.center{
-  max-width: 520px;           /* + large que 520 ? monte à 560 si tu veux */
+  max-width: 520px;
   margin: 10vh auto 6vh;
 }
-
-/* Carte du formulaire plus aérée */
 #auth-form.card{
   padding: 1.25rem 1.3rem 1.1rem;
 }
-
-/* Espacements verticaux harmonisés dans le form */
 #auth-form label{
   display:block;
   margin: .25rem 0 .35rem;
   color: var(--iron-strong);
 }
 #auth-form input{
-  height: 44px;               /* mêmes hauteurs partout */
+  height: 44px;
   padding: .65rem .85rem;
 }
-
-/* Ligne des boutons Connexion / Créer un compte */
 #login-box .row{
   gap: .6rem;
-  margin: .9rem 0 1rem;       /* de l’air au-dessus/ dessous */
+  margin: .9rem 0 1rem;
 }
 #mode-signin, #mode-signup{
-  flex: 1 1 0;                 /* même largeur */
+  flex: 1 1 0;
 }
-
-/* Bouton submit sur toute la largeur + respiration */
 #submit-btn{
   width: 100%;
   height: 46px;
   font-weight: 700;
 }
-
-/* Bloc pseudo visible en mode signup : ajoute de l’air */
 #pseudo-wrap{
   margin-bottom: .35rem;
 }
-
-/* Feedback lisible + variante erreur si nécessaire */
 #login-feedback{
   margin-top: .9rem;
   text-align: center;
@@ -392,12 +358,67 @@ hr.invis{height:0;border:0;margin:0;padding:0}
 #login-feedback.error{
   color: var(--danger);
 }
-
-/* Micro-améliorations visuelles */
 #auth-form{
   backdrop-filter: saturate(110%);
 }
 #auth-form input:focus{
   border-color: rgba(34,197,94,.55);
   box-shadow: 0 0 0 3px rgba(34,197,94,.18);
+}
+/* ===== Logs ===== */
+
+.logs-table td + td,
+.logs-table th + th{
+  border-left: 1px solid rgba(255,255,255,.06);
+}
+
+.logs-table th,
+.logs-table td{
+  vertical-align: middle;
+}
+
+.logs-table th:nth-child(4),
+.logs-table td:nth-child(4){
+  text-align: center;
+  width: 110px;
+  font-variant-numeric: tabular-nums;
+}
+
+.logs-table th:nth-child(5),
+.logs-table td:nth-child(5){
+  text-align: center;
+  white-space: nowrap;
+}
+
+.logs-table tbody tr{
+  transition: background-color .18s ease, filter .18s ease;
+}
+.logs-table tbody tr:hover td{
+  background: rgba(134,239,172,.06);
+}
+
+/* ===== Ressource: tableau mêmes styles que logs ===== */
+.resource-table td + td,
+.resource-table th + th{
+  border-left: 1px solid rgba(255,255,255,.06);
+}
+
+.resource-table th,
+.resource-table td{
+  vertical-align: middle;
+}
+
+.resource-table th:nth-child(2),
+.resource-table td:nth-child(2){
+  text-align: center;
+  width: 110px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.resource-table tbody tr{
+  transition: background-color .18s ease, filter .18s ease;
+}
+.resource-table tbody tr:hover td{
+  background: rgba(134,239,172,.06);
 }

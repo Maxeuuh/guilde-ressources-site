@@ -85,7 +85,6 @@
 .res-item .label{font-weight:600; letter-spacing:.2px}
 .res-item .qty{color:var(--muted)}
 
-/* Decorative slash divider under titles */
 .title-slashed{ position:relative; padding-bottom:.4rem; margin-bottom:.8rem; }
 .title-slashed::after{
   content:""; position:absolute; left:0; bottom:0; height:3px; width:82px;

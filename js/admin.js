@@ -1,5 +1,3 @@
-// js/admin.js (front-only : refuse = nettoyage app; Auth non touché)
-
 async function loadPending() {
   const { data, error } = await supabase
     .from("profiles").select("id,username,email,role")
@@ -36,7 +34,6 @@ async function renderPending() {
       </tr>
     `).join("");
 
-    // Accepter -> role = member
     tbody.querySelectorAll(".approve-member").forEach(b => b.addEventListener("click", async (e) => {
       const tr = e.target.closest("tr");
       const uid = tr?.dataset?.id;
@@ -48,7 +45,6 @@ async function renderPending() {
       } catch (err) { alert("Erreur: " + (err?.message || err)); }
     }));
 
-    // Refuser -> supprime données + profil (Auth inchangé)
     tbody.querySelectorAll(".reject").forEach(b => b.addEventListener("click", async (e) => {
       const tr = e.target.closest("tr");
       const uid = tr?.dataset?.id;
@@ -88,7 +84,6 @@ async function renderAll() {
       </tr>
     `).join("");
 
-    // Changer le rôle
     tbody.querySelectorAll(".save").forEach(btn => btn.addEventListener("click", async (e) => {
       const tr = e.target.closest("tr");
       const uid = tr?.dataset?.id;

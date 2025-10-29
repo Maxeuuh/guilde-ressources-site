@@ -1,5 +1,3 @@
-// js/resource.js (total guilde simple + liste membres)
-
 function getParam(name){
   const u = new URL(window.location.href);
   return u.searchParams.get(name);
@@ -13,12 +11,10 @@ async function loadResource(){
 
   if (!id){ tErr.style.display=""; tErr.textContent="Paramètre 'id' manquant."; return; }
 
-  // Nom
   const { data: res, error: e1 } = await supabase.from("resources").select("id,name").eq("id", id).single();
   if (e1){ tErr.style.display=""; tErr.textContent = "Erreur: " + e1.message; return; }
   document.getElementById("res-title").textContent = res.name;
 
-  // Inventaires pour cette ressource
   const { data, error } = await supabase
     .from("inventories")
     .select(`
@@ -30,7 +26,6 @@ async function loadResource(){
 
   if (error){ tErr.style.display=""; tErr.textContent = "Erreur: " + error.message; return; }
 
-  // Agrège par user (au cas où plusieurs lignes existent)
   const map = new Map();
   for (const row of (data || [])){
     const uid = row.user_id;
@@ -51,7 +46,6 @@ async function loadResource(){
   }
   tEmpty.style.display = "none";
 
-  // Tri par quantité desc
   rows.sort((a,b)=> b.qty - a.qty);
   tbody.innerHTML = rows.map(r => `
     <tr>

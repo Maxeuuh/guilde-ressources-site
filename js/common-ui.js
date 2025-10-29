@@ -1,12 +1,8 @@
-// js/common-ui.js
-
-// Détecte la page courante (index.html, profile.html, etc.)
 function currentPage() {
   const last = window.location.pathname.split("/").pop() || "index.html";
   return last.toLowerCase();
 }
 
-// Marque le lien actif dans la nav
 function setActiveNav() {
   const page = currentPage();
   document.querySelectorAll(".nav-links a").forEach(a => {
