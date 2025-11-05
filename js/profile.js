@@ -24,7 +24,6 @@ async function initProfile(){
   await loadMyInventory(ctx.user.id);
 }
 
-// === Chargement des selects
 async function loadResourceOptions(selectId){
   const sel = $(selectId);
   sel.innerHTML = `<option value="" disabled selected>— choisir —</option>`;
@@ -46,7 +45,6 @@ async function loadMemberOptions(selectId, currentUserId){
   sel.innerHTML += rows.map(u=>`<option value="${u.id}">${u.username} (${u.role})</option>`).join("");
 }
 
-// === Inventaire
 async function loadMyInventory(userId){
   const tbody = $("inv-body");
   tbody.innerHTML = `<tr><td colspan="3">Chargement…</td></tr>`;
@@ -95,7 +93,6 @@ async function loadMyInventory(userId){
   });
 }
 
-// === Mutations
 async function setMyQty(userId,resourceId,qty){
   qty=Number(qty||0);
   if(qty<=0){
@@ -125,7 +122,6 @@ async function subFromMyInventory(uid,rid,qty){
   await setMyQty(uid,rid,next);
 }
 
-// === Dons
 async function donate(fromUserId){
   const toId=$("don-user").value;
   const resId=$("don-resource-select").value;
@@ -137,7 +133,6 @@ async function donate(fromUserId){
   $("don-qty").value="";alert("Don effectué !");
 }
 
-// === Events
 function wireEvents(userId){
   ["add-stacks","add-units"].forEach(id=>{
     $(id).addEventListener("input",()=>{

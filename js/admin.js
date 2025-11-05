@@ -1,4 +1,4 @@
-// ================== admin.js — rendering + actions (sans realtime) ==================
+// ================== admin.js ==================
 
 async function loadPending() {
   const { data, error } = await supabase
@@ -24,7 +24,6 @@ async function renderPending() {
   try {
     const rows = await loadPending();
 
-    // Met à jour la pastille immédiatement (pas de realtime)
     if (typeof window.__refreshWaitingBadge === "function") {
       await window.__refreshWaitingBadge();
     }
@@ -52,7 +51,7 @@ async function renderPending() {
       try {
         const { error } = await supabase.rpc("admin_approve", { p_user: uid, p_new_role: "member" });
         if (error) throw error;
-        await renderPending(); // re-peint tout de suite après action
+        await renderPending();
         await renderAll();
       } catch (err) { alert("Erreur: " + (err?.message || err)); }
     }));
@@ -121,7 +120,7 @@ async function renderAll() {
   const ctx = await routeGuard();
   if (!ctx.user) return;
 
-  renderHeader(ctx.profile);       // affiche la nav + calcule la pastille si admin
-  await renderPending();           // dessine la liste en attente
-  await renderAll();               // dessine tous les users
+  renderHeader(ctx.profile);
+  await renderPending();
+  await renderAll();
 })();

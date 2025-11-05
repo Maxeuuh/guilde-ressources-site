@@ -1,4 +1,4 @@
-// ================== common-ui.js — header + badge (sans realtime) ==================
+// ================== common-ui.js ==================
 
 function currentPage() {
   const last = window.location.pathname.split("/").pop() || "index.html";
@@ -49,7 +49,6 @@ function renderHeader(profile) {
   setActiveNav();
   applyRoleNav(profile?.role);
 
-  // Calcule le badge une seule fois au chargement (si admin)
   if (isAdmin) {
     refreshWaitingBadge();
   }
@@ -68,8 +67,6 @@ function applyRoleNav(role) {
   elAdmin.forEach(el   => el.style.display = showAdmin   ? "" : "none");
 }
 
-// -------- Badge "en attente" (sans realtime) --------
-
 async function refreshWaitingBadge() {
   const el = document.getElementById("waiting-badge");
   if (!el) return;
@@ -87,10 +84,8 @@ async function refreshWaitingBadge() {
       el.textContent = String(n);
     }
   } catch (_) {
-    // En cas d'erreur, on masque la pastille (pas de bruit visuel)
     el.hidden = true;
   }
 }
 
-// Expose une fonction globale pour forcer le recalcul depuis d’autres pages (ex: admin.js)
 window.__refreshWaitingBadge = refreshWaitingBadge;
